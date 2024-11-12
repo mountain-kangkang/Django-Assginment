@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # own apps
+    "todo",
+    # third party apps
+    "django_extensions",
 ]
 
 MIDDLEWARE = [
