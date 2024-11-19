@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # own apps
     "todo",
+    "users",
     # third party apps
     "django_extensions",
 ]
