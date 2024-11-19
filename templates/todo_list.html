@@ -5,12 +5,27 @@
     <title>To Do List</title>
 </head>
 <body>
-    <h1>To Do</h1>
-    {% for todo in todos %}
-        <p>
-            <a href="/todo/{{ todo.id }}/">{{ forloop.counter }}. {{ todo.title }}</a>
-        </p>
-    {% endfor %}
-
+    {% if request.user.is_authenticated %}
+        <nav style="text-align: right">
+            {{ request.user.username }}
+            <form action="{% url 'logout' %}" method="POST" style="display: inline">
+                {% csrf_token %}
+                <button>logout</button>
+            </form>
+        </nav>
+        <h1>To Do</h1>
+        {% for todo in todos %}
+            <p>
+                <a href="/todo/{{ todo.id }}/">{{ forloop.counter }}. {{ todo.title }}</a>
+            </p>
+        {% endfor %}
+    {% else %}
+        <h1 style="text-align: center">Welcome~!</h1>
+        <div style="text-align: center">
+            <a href="{% url 'login' %}">login</a>
+            <a>&nbsp</a>
+            <a href="{% url 'sign_up' %}">sign up</a>
+        </div>
+    {% endif %}
 </body>
 </html>
