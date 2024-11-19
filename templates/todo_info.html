@@ -5,11 +5,30 @@
     <title>To do</title>
 </head>
 <body>
-    <h1>To do</h1>
-    <h3>{{ todo.title }}</h3>
-    <p>description : {{ todo.description }}</p>
-    <p>date : {{ todo.start_date }} ~ {{ todo.end_date }}</p>
-    <p>is_complete : {{ todo.is_complete }}</p>
-    <p>created_at : {{ todo.created_at }}</p>
+    {% if request.user.is_authenticated %}
+        <nav style="text-align: right">
+            {{ request.user.username }}
+            <form action="{% url 'todo_list' %}" method="GET" style="display: inline">
+                <button>list</button>
+            </form>
+            <form action="{% url 'logout' %}" method="POST" style="display: inline">
+                {% csrf_token %}
+                <button>logout</button>
+            </form>
+        </nav>
+        <h1>To do</h1>
+        <h3>{{ todo.title }}</h3>
+        <p>description : {{ todo.description }}</p>
+        <p>date : {{ todo.start_date | date:"Y.m.d" }} ~ {{ todo.end_date | date:"Y.m.d" }}</p>
+        <p>is_complete : {{ todo.is_complete }}</p>
+        <p>created_at : {{ todo.created_at | date:"Y.m.d-H:i" }}</p>
+    {% else %}
+        <h1 style="text-align: center">Welcome~!</h1>
+        <div style="text-align: center">
+            <a href="{% url 'login' %}">login</a>
+            <a>&nbsp</a>
+            <a href="{% url 'sign_up' %}">sign up</a>
+        </div>
+    {% endif %}
 </body>
 </html>
