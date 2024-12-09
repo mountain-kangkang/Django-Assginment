@@ -1,8 +1,10 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from todo.models import Todo
 
+# @login_required()
 def todo_list(request):
-    todos = Todo.objects.all()
+    todos = Todo.objects.filter(author=request.user)
     context = {'todos':todos}
     return render(request, 'todo_list.html', context)
 
