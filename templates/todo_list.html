@@ -19,6 +19,10 @@
                 <a href="/todo/{{ todo.id }}/">{{ forloop.counter }}. {{ todo.title }}</a>
             </p>
         {% endfor %}
+        <form method="get" style="margin-top: 30px; margin-bottom: 10px;">
+        <input name="q" type="text" placeholder="검색어를 입력하세요." value="{% if request.GET.q %}{{ request.GET.q }}{% endif %}">
+        <button>search</button>
+    </form>
     {% else %}
         <h1 style="text-align: center">Welcome~!</h1>
         <div style="text-align: center">
