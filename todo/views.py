@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 from todo.models import Todo
@@ -14,7 +15,12 @@ def todo_list(request):
             Q(description__icontains=q)
         )
 
-    context = {'todos':todos}
+    paginator = Paginator(todos, 5)
+    page = request.GET.get('page')
+    page_obj = paginator.get_page(page)
+
+
+    context = {'page_obj': page_obj}
     return render(request, 'todo_list.html', context)
 
 def todo_info(request, todo_id):
